@@ -5,6 +5,8 @@ $ErrorView = 'NormalView'
 Get-ExperimentalFeature | Disable-ExperimentalFeature
 
 
+# Group Policy
+InstallPSCorePolicyDefinitions.ps1
 
 
 
@@ -15,8 +17,7 @@ Get-ExperimentalFeature | Disable-ExperimentalFeature
 Measure-Command {
 
     Get-ChildItem c:\dev\git |
-    ForEach-Object #-parallel
-    {
+    ForEach-Object {
 
         for ($i = 0; $i -lt 100000; $i++) {
             $j += 1
@@ -42,9 +43,6 @@ Get-ChildItem C:\dev\git\au-packages -Recurse *.nuspec | Select-String title -Ra
 # Select-String -Culture
 Get-ChildItem C:\dev\git\au-packages -Recurse *.nuspec | Select-String -SimpleMatch title -Culture zh-CN
 
-# Group Policy
-InstallPSCorePolicyDefinitions.ps1
-
 # ActionPreference.Break
 
 $ErrorActionPreference = "Break"
@@ -55,6 +53,9 @@ Write-Error "Oh dear"
 # Get-Error
 throw "oh dear"
 Get-Error
+
+# Ternary operator
+$answer = [Datetime]::Now.Minute -gt 30 ? "minutes to" : "minutes past"
 
 # Pipeline chain
 (ping -x) && (ping localhost)
@@ -89,12 +90,6 @@ $cred.Password
 
 ConvertFrom-SecureString -AsPlainText -SecureString $cred.Password
 
-# Ternary operator
-$answer = [Datetime]::Now.Minute -gt 30 ? "minutes to" : "minutes past"
-
-# Get-Hotfix (missing in Core 6)
-Get-HotFix
-
 # $ErrorView
 $i = 0
 $i.ToString2()
@@ -107,6 +102,8 @@ $a = [PSCustomObject]@{
 
 $a | Update-List -Property List -Add "d"
 
+# Get-Hotfix (missing in Core 6)
+Get-HotFix
 
 # Out-Gridview (missing in Core 6)
 Get-ChildItem .. | Out-GridView
